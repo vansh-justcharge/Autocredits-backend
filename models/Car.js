@@ -7,7 +7,7 @@ const carSchema = new mongoose.Schema({
   email: { type: String, lowercase: true, trim: true },
 
   // Car Details from UI
-  make: { type: String, required: [true, 'Car make (brand) is required'], trim: true },
+  Brand: { type: String, required: [true, 'Car Brand (brand) is required'], trim: true },
   model: { type: String, required: [true, 'Car model is required'], trim: true },
   year: { type: Number, required: [true, 'Car year is required'] },
   price: { type: Number, required: [true, 'Price is required'], min: 0 },
@@ -36,12 +36,12 @@ const carSchema = new mongoose.Schema({
 
 // Indexes
 carSchema.index({ vin: 1 }, { unique: true, sparse: true });
-carSchema.index({ make: 1, model: 1, year: 1 });
+carSchema.index({ Brand: 1, model: 1, year: 1 });
 carSchema.index({ status: 1 });
 
 // Virtual for full car name
 carSchema.virtual('fullName').get(function () {
-  return `${this.year} ${this.make} ${this.model}`;
+  return `${this.year} ${this.Brand} ${this.model}`;
 });
 
 // Pre-save middleware
