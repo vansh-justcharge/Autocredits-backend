@@ -1,7 +1,7 @@
 const express = require("express")
 const { body } = require("express-validator")
 const { ValidatorFactory } = require("../middlewares/validator")
-const { getLeads, getLeadById, create, update, delete: deleteLead, addNote, updateStatus, exportLeads } = require("../controllers/LeadController")
+const { getLeads, getLeadById, create, update, delete: deleteLead, addNote, updateStatus, exportLeads } = require("../controllers/leadController")
 const { auth, restrictTo } = require("../middlewares/auth")
 
 const router = express.Router()
