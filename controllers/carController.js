@@ -21,6 +21,7 @@ class CarController {
   getCars = async (req, res, next) => {
     try {
       const cars = await Car.find({}).populate('createdBy', 'firstName lastName email');
+      console.log('Cars fetched:', cars);
       res.status(200).json({
         status: 'success',
         data: cars

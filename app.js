@@ -30,7 +30,7 @@ app.use(limiter);
 
 // CORS configuration
 app.use(cors({
-  origin: 'https://auto-credits-frontend.vercel.app', // Vite's default port
+  origin: ['https://auto-credits-frontend.vercel.app', 'http://localhost:5173'],  // Vite's default port
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -97,7 +97,7 @@ const authenticateToken = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
-
+a
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
