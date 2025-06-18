@@ -307,16 +307,13 @@ async function seedDatabase() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
-        console.log("✅ Connected to MongoDB")
 
         // Clear existing data
         await Lead.deleteMany({})
         await User.deleteMany({})
-        console.log("🗑️  Cleared existing data")
 
         // Create default user
         const user = await User.create(defaultUser)
-        console.log("👤 Created default user:", user.email)
 
         // Add assignedTo field to leads
         const leadsWithAssignment = sampleLeads.map((lead) => ({
@@ -326,22 +323,15 @@ async function seedDatabase() {
 
         // Insert sample leads
         const createdLeads = await Lead.insertMany(leadsWithAssignment)
-        console.log(`📊 Created ${createdLeads.length} sample leads`)
-
-        console.log("\n🎉 Database seeded successfully!")
-        console.log("\nDefault User Credentials:")
-        console.log("Email: inshra.fatma@company.com")
-        console.log("Password: password123")
-        console.log("\nSample Leads Created:")
         createdLeads.forEach((lead, index) => {
             console.log(`${index + 1}. ${lead.firstName} ${lead.lastName} - ${lead.service} (${lead.status})`)
         })
     } catch (error) {
-        console.error("❌ Error seeding database:", error)
+        console.error("Error seeding database:", error)
     } finally {
         // Close connection
         await mongoose.connection.close()
-        console.log("\n🔌 Database connection closed")
+        console.log("\n Database connection closed")
         process.exit(0)
     }
 }

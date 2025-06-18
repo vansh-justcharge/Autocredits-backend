@@ -85,16 +85,16 @@ exports.create = async (req, res, next) => {
       console.log("Processing assignedTo string:", assignedToString)
 
       if (!mongoose.Types.ObjectId.isValid(assignedToString)) {
-        console.log("❌ Invalid assignedTo ObjectId:", assignedToString)
+        console.log("Invalid assignedTo ObjectId:", assignedToString)
         throw new AppError("Invalid assignedTo user ID", 400)
       }
-      console.log("✅ Valid assignedTo ObjectId:", assignedToString)
+      console.log("Valid assignedTo ObjectId:", assignedToString)
 
       // Convert to ObjectId
       leadData.assignedTo = new mongoose.Types.ObjectId(assignedToString)
-      console.log("✅ Converted to ObjectId:", leadData.assignedTo)
+      console.log("Converted to ObjectId:", leadData.assignedTo)
     } else {
-      console.log("ℹ️ No valid assignedTo provided, setting to null")
+      console.log("No valid assignedTo provided, setting to null")
       console.log("Original value was:", leadData.assignedTo)
       leadData.assignedTo = null
     }
@@ -102,7 +102,7 @@ exports.create = async (req, res, next) => {
     // Handle lastContact field - convert to Date if provided
     if (leadData.lastContact && leadData.lastContact.trim() !== "") {
       leadData.lastContact = new Date(leadData.lastContact)
-      console.log("✅ Last contact date:", leadData.lastContact)
+      console.log("Last contact date:", leadData.lastContact)
     } else {
       leadData.lastContact = null
     }
@@ -110,7 +110,7 @@ exports.create = async (req, res, next) => {
     console.log("Final lead data before save:", JSON.stringify(leadData, null, 2))
 
     const lead = await Lead.create(leadData)
-    console.log("✅ Lead created with ID:", lead._id)
+    console.log("Lead created with ID:", lead._id)
     console.log("Raw lead assignedTo after save:", lead.assignedTo)
 
     // Populate the created lead before sending response
@@ -118,7 +118,7 @@ exports.create = async (req, res, next) => {
       strictPopulate: false,
     })
 
-    console.log("✅ Populated lead:", JSON.stringify(populatedLead, null, 2))
+    console.log("Populated lead:", JSON.stringify(populatedLead, null, 2))
     console.log("Populated assignedTo:", populatedLead.assignedTo)
 
     res.status(201).json({
@@ -126,7 +126,7 @@ exports.create = async (req, res, next) => {
       data: { lead: populatedLead },
     })
   } catch (error) {
-    console.error("❌ Create lead error:", error)
+    console.error("Create lead error:", error)
     next(error)
   }
 }
@@ -157,14 +157,14 @@ exports.update = async (req, res, next) => {
         console.log("Processing assignedTo string:", assignedToString)
 
         if (!mongoose.Types.ObjectId.isValid(assignedToString)) {
-          console.log("❌ Invalid assignedTo ObjectId:", assignedToString)
+          console.log("Invalid assignedTo ObjectId:", assignedToString)
           throw new AppError("Invalid assignedTo user ID", 400)
         }
-        console.log("✅ Valid assignedTo ObjectId:", assignedToString)
+        console.log("Valid assignedTo ObjectId:", assignedToString)
         updateData.assignedTo = new mongoose.Types.ObjectId(assignedToString)
-        console.log("✅ Converted to ObjectId:", updateData.assignedTo)
+        console.log("Converted to ObjectId:", updateData.assignedTo)
       } else {
-        console.log("ℹ️ Clearing assignedTo field")
+        console.log("Clearing assignedTo field")
         console.log("Original value was:", updateData.assignedTo)
         updateData.assignedTo = null
       }
@@ -174,7 +174,7 @@ exports.update = async (req, res, next) => {
     if (updateData.lastContact !== undefined) {
       if (updateData.lastContact && updateData.lastContact.trim() !== "") {
         updateData.lastContact = new Date(updateData.lastContact)
-        console.log("✅ Last contact date:", updateData.lastContact)
+        console.log("Last contact date:", updateData.lastContact)
       } else {
         updateData.lastContact = null
       }
@@ -190,7 +190,7 @@ exports.update = async (req, res, next) => {
       throw new AppError("Lead not found", 404)
     }
 
-    console.log("✅ Updated lead:", JSON.stringify(lead, null, 2))
+    console.log("Updated lead:", JSON.stringify(lead, null, 2))
     console.log("Updated assignedTo:", lead.assignedTo)
 
     res.status(200).json({
@@ -198,7 +198,7 @@ exports.update = async (req, res, next) => {
       data: { lead },
     })
   } catch (error) {
-    console.error("❌ Update lead error:", error)
+    console.error("Update lead error:", error)
     next(error)
   }
 }

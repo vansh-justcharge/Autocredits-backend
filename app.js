@@ -97,7 +97,7 @@ const authenticateToken = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
-a
+  
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
@@ -210,7 +210,7 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
 
 // Start server
 const server = app.listen(config.port, () => {
-  console.log(`✅ Server running at http://localhost:${config.port}`);
+  console.log(`Server running at http://localhost:${config.port}`);
 });
 
 // Graceful shutdown
