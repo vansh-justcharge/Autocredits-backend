@@ -27,12 +27,12 @@ const leadSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["new", "contacted", "qualified", "proposal", "negotiation", "closed", "lost"],
+      enum: ["new", "sold"],
       default: "new",
     },
     source: {
       type: String,
-      enum: ["website", "referral", "walk-in", "phone", "email", "social", "other"],
+      enum: ["reference", "walk-in"],
       required: [true, "Lead source is required"],
     },
     service: {

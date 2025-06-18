@@ -12,15 +12,15 @@ const carSchema = new mongoose.Schema({
   year: { type: Number, required: [true, 'Car year is required'] },
   price: { type: Number, required: [true, 'Price is required'], min: 0 },
   mileage: { type: Number, required: [true, 'Mileage is required'], min: 0 },
-  color: { type: String, trim: true },
-  vin: { type: String, unique: true, sparse: true, trim: true },
-  carNumber: { type: String, trim: true },
-  condition: { type: String, enum: ['new', 'used', 'certified'], required: [true, 'Condition is required'] },
-  status: { type: String, enum: ['available', 'sold', 'reserved', 'maintenance'], default: 'available' },
+  color: { type: String, required: [true, 'Color is required'], trim: true },
+  vin: { type: String, unique: true, sparse: true, required: [true, 'VIN is required'], trim: true },
+  carNumber: { type: String, required: [true, 'Car number is required'], trim: true },
+  condition: { type: String, enum: ['new', 'used'], required: [true, 'Condition is required'] },
+  status: { type: String, enum: ['available', 'sold'], default: 'available', required: [true, 'Status is required'] },
 
   // Purchase Details
   purchaseDate: { type: Date },
-  paymentStatus: { type: String, enum: ['Completed', 'Pending', 'Failed'] },
+  paymentStatus: { type: String, enum: ['Completed', 'Pending'], required: [true, 'Payment status is required'] },
 
   // Other fields
   features: [{ type: String, trim: true }],
